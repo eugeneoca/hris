@@ -10,6 +10,9 @@ COPY package*.json ./
 # Install NPM packages
 RUN npm install
 
+# Initialize Prisma
+RUN npm run migrate:reset
+
 # Copy the project files
 COPY . .
 

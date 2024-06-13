@@ -14,15 +14,25 @@ services:
     expose:
       - 3308
 
-  backend:
-    container_name: backend
-    build:  ./backend
-    ports:
-      - "3000:3000"
-    expose:
-      - 3000
-    depends_on:
-      - database
+  # backend:
+  #   container_name: backend
+  #   build:  ./backend
+  #   ports:
+  #     - "3000:3000"
+  #   expose:
+  #     - 3000
+  #   depends_on:
+  #     - database
+
+  # frontend:
+  #   container_name: frontend
+  #   build: ./frontend
+  #   ports:
+  #     - "4000:4000"
+  #   expose:
+  #     - 4000
+  #   depends_on:
+  #     - backend
 
   
 volumes:
