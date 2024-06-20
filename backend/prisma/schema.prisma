@@ -18,15 +18,70 @@ model User{
 
   username String @unique
   password String
+  code String // Randomly Generated
 
   role_id Int
+  department_id Int
+  areas Area[]
+
   role Role @relation(fields: [role_id], references: [id])
+  department Department @relation(fields: [department_id], references: [id])
+  profile Profile?
+  
   sessions Session[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
   @@map("users")
+}
+
+model Profile{
+  id Int @id @default(autoincrement())
+
+  first_name String
+  last_name String
+  middle_name String
+  mobile String?
+  email String?
+  profile_picture_url String?
+  address String? @db.LongText
+  gender String?
+  birthday DateTime?
+  sss_number String?
+  pagibig_number String?
+  philhealth String?
+  tin_number String?
+  position String?
+  sick_leave_limit Int?
+  vacation_leave_limit Int?
+  hire_date DateTime?
+  termination_date DateTime?
+
+  user_id Int @unique
+  rank_id Int @unique
+
+  user User @relation(fields: [user_id], references: [id])
+  rank Rank @relation(fields: [rank_id], references: [id])
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("profiles")
+}
+
+model Rank{
+  id Int @id @default(autoincrement())
+
+  name String
+  order Int
+
+  users Profile[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("ranks")
 }
 
 model Role{
@@ -40,6 +95,34 @@ model Role{
   updated_at DateTime @updatedAt
 
   @@map("roles")
+}
+
+model Department{
+  id Int @id @default(autoincrement())
+
+  name String @unique
+  code String // Randomly generated
+
+  users User[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("department")
+}
+
+model Area{
+  id Int @id @default(autoincrement())
+
+  name String @unique
+  code String // Randomly generated
+
+  users User[]
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("area")
 }
 
 model Session{

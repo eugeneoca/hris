@@ -10,11 +10,12 @@ COPY package*.json ./
 # Install NPM packages
 RUN npm install
 
-# Initialize Prisma
-RUN npm run migrate:reset
-
-# Copy the project files
+# Copy project files
 COPY . .
+
+# Initialize Prisma
+RUN npx prisma generate
+RUN npm run migrate:reset
 
 # Set environment variables
 ENV PORT=3000

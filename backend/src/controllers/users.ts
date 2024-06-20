@@ -65,7 +65,10 @@ route.post('/', [
             })
     }
 
+    const code = request.body.code;
     const role_id = request.body.role_id;
+    const department_id = request.body.department_id;
+    const areas = request.body.areas;
 
     const role_exists = !!await prismaClient.role.findFirst({
         where: {
@@ -83,18 +86,25 @@ route.post('/', [
     }
 
     const password = request.body.password;
-    const encrypted_password = await crypt.encrypt(password)
+    const encrypted_password = await crypt.encrypt(password);
 
     const user = await prismaClient.user.create({
         data: {
             username: username,
             password: <string>encrypted_password,
-            role_id: role_id
+            code: code,
+            role_id: role_id,
+            department_id: department_id,
+            areas: {
+                connect: areas.map(function (id: Number) { return { id }; })
+            }
         },
         include: {
             role: true,
+            department: true,
+            areas: true
         }
-    })
+    });
 
     const created_user = await prismaClient.user.findFirst({
         where: {
@@ -108,6 +118,12 @@ route.post('/', [
                     name: true
                 }
             },
+            "department": {
+                select: {
+                    name: true
+                }
+            },
+            "areas": true
         }
     });
 
