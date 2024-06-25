@@ -1,15 +1,14 @@
 import crypt from "../../src/helpers/cryptography";
 
 async function seedFunction(prismaClient: any) {
-    console.log("Generate Departments")
+    console.log("Generate Areas")
 
-    const main = await prismaClient.department.create({
+    const main = await prismaClient.rank.create({
         data: {
-            name: "main department",
-            code: crypt.generateCode(10)
+            name: "main rank",
+            order: 1
         }
     });
-
 }
 
 export default {

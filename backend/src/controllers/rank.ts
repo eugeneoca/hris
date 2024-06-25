@@ -8,10 +8,11 @@ const prismaClient = new PrismaClient();
 const route = Router()
 
 route.get('/', async (request: Request, response: Response) => {
-    const roles = await prismaClient.department.findMany();
-    response
+    const ranks = await prismaClient.rank.findMany();
+    console.log(ranks)
+    return response
         .status(200)
-        .json(roles);
+        .json(ranks);
 });
 
 route.get('/:id', async (request: Request, response: Response) => {
@@ -21,13 +22,13 @@ route.get('/:id', async (request: Request, response: Response) => {
             throw Error("Invalid parameter :id.");
         }
 
-        const role = await prismaClient.department.findFirstOrThrow({
+        const rank = await prismaClient.rank.findFirstOrThrow({
             where: {
                 id: parseInt(request.params.id)
             }
         });
         return response.status(200).json(
-            role
+            rank
         );
     } catch (error: any) {
         return response
@@ -40,9 +41,6 @@ route.get('/:id', async (request: Request, response: Response) => {
 });
 
 route.post('/', [
-    body("code")
-        .exists().withMessage("is required.")
-        .notEmpty().withMessage("should not be empty."),
     body("name")
         .exists().withMessage("is required.")
         .notEmpty().withMessage("should not be empty.")
@@ -56,7 +54,6 @@ route.post('/', [
     }
 
     const name = request.body.name;
-    const code = request.body.code;
 
     const exists = !!await prismaClient.department.findFirst({
         where: {
@@ -69,19 +66,28 @@ route.post('/', [
             .status(409)
             .json({
                 code: response.statusCode,
-                message: "Department already exists."
+                message: "Rank already exists."
             })
     }
 
-    const department = await prismaClient.department.create({
+    var next_order = 0;
+    const highest_order = await prismaClient.rank.aggregate({
+        _max: {
+            order: true
+        }
+    });
+
+    next_order += highest_order._max.order ? highest_order._max.order + 1 : 1;
+    console.log(next_order)
+    const rank = await prismaClient.rank.create({
         data: {
             name: name,
-            code: code
+            order: 1
         }
     });
     response
         .status(201)
-        .json(department);
+        .json(rank);
 });
 
 route.delete("/:id", AuthMiddleware.ensureAuthenticated, async (request: Request, response: Response) => {
@@ -89,13 +95,13 @@ route.delete("/:id", AuthMiddleware.ensureAuthenticated, async (request: Request
     const id = parseInt(request.params.id);
 
     try {
-        const exists = await prismaClient.department.findFirstOrThrow({
+        await prismaClient.rank.findFirstOrThrow({
             where: {
                 id: id
             }
         });
 
-        const department = await prismaClient.department.delete({
+        const rank = await prismaClient.rank.delete({
             where: {
                 id: id
             }
@@ -103,7 +109,7 @@ route.delete("/:id", AuthMiddleware.ensureAuthenticated, async (request: Request
 
         response
             .status(204)
-            .json(department)
+            .json(rank)
     } catch (error: any) {
         response
             .status(404)

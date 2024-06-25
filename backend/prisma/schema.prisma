@@ -18,11 +18,11 @@ model User{
 
   username String @unique
   password String
-  code String // Randomly Generated
+  code String @unique // Randomly Generated
 
   role_id Int
   department_id Int
-  areas Area[]
+  //areas Area[]
 
   role Role @relation(fields: [role_id], references: [id])
   department Department @relation(fields: [department_id], references: [id])
@@ -39,11 +39,11 @@ model User{
 model Profile{
   id Int @id @default(autoincrement())
 
-  first_name String
+  first_name String @unique
   last_name String
-  middle_name String
+  middle_name String?
   mobile String?
-  email String?
+  email String? @unique
   profile_picture_url String?
   address String? @db.LongText
   gender String?
@@ -73,8 +73,8 @@ model Profile{
 model Rank{
   id Int @id @default(autoincrement())
 
-  name String
-  order Int
+  name String @unique
+  order Int?
 
   users Profile[]
 
@@ -101,7 +101,7 @@ model Department{
   id Int @id @default(autoincrement())
 
   name String @unique
-  code String // Randomly generated
+  code String @unique // Randomly generated
 
   users User[]
 
@@ -111,19 +111,19 @@ model Department{
   @@map("department")
 }
 
-model Area{
-  id Int @id @default(autoincrement())
+// model Area{
+//   id Int @id @default(autoincrement())
 
-  name String @unique
-  code String // Randomly generated
+//   name String @unique
+//   code String @unique // Randomly generated
 
-  users User[]
+//   users User[]
 
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
+//   created_at DateTime @default(now())
+//   updated_at DateTime @updatedAt
 
-  @@map("area")
-}
+//   @@map("area")
+// }
 
 model Session{
   id Int @id @default(autoincrement())
@@ -138,4 +138,17 @@ model Session{
   updated_at DateTime @updatedAt
 
   @@map("sessions")
+}
+
+model Biometric{
+  id Int @id @default(autoincrement())
+
+  username String
+  password String
+  is_active Boolean @default(false)
+
+  created_at DateTime @default(now())
+  updated_at DateTime @updatedAt
+
+  @@map("biometrics")
 }

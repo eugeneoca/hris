@@ -1,5 +1,6 @@
 
 import bcrypt from "bcrypt";
+import crypto from "crypto";
 
 const encrypt = (password: string) => {
     return new Promise((resolve: any, reject: any) => {
@@ -23,7 +24,12 @@ const compare = (plain: string, encrypted: string) => {
 
 }
 
+const generateCode = (length: number) => {
+    return crypto.randomBytes(20).toString('hex').toUpperCase().slice(0, length);
+}
+
 export default {
     encrypt,
-    compare
+    compare,
+    generateCode
 }
