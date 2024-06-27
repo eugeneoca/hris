@@ -28,9 +28,18 @@ route.get('/', async (request: Request, response: Response) => {
 
         const zk = await axios.post(`${process.env.ZK_TECO_API_URL}/api-token-auth/`, data);
 
+        const deviceInfo = await axios.get(`${process.env.ZK_TECO_API_URL}/iclock/api/terminals/1/`, {
+            headers: {
+                "Authorization": `Token ${zk.data.token}`
+            }
+        });
+
         return response
             .status(200)
-            .json(zk.data);
+            .json({
+                token: zk.data.token,
+                info: deviceInfo.data
+            });
 
     } catch (error: any) {
         return response.status(404).json({
@@ -67,7 +76,13 @@ route.post('/', [
             password: password
         });
 
-        await axios.post(`${process.env.ZK_TECO_API_URL}/api-token-auth/`, data);
+        const zk = await axios.post(`${process.env.ZK_TECO_API_URL}/api-token-auth/`, data);
+
+        const deviceInfo = await axios.get(`${process.env.ZK_TECO_API_URL}/iclock/api/terminals/1/`, {
+            headers: {
+                "Authorization": `Token ${zk.data.token}`
+            }
+        });
 
         await prismaClient.$transaction([
             prismaClient.biometric.updateMany({
@@ -88,7 +103,8 @@ route.post('/', [
             .status(201)
             .json({
                 code: response.statusCode,
-                message: "Created succesfully"
+                message: "Created succesfully",
+                info: deviceInfo.data
             });
     } catch (error: any) {
         return response

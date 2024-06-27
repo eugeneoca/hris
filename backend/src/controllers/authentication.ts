@@ -81,6 +81,7 @@ route.post('/login', [
                     username: true,
                     role: {
                         select: {
+                            id: true,
                             name: true
                         }
                     }

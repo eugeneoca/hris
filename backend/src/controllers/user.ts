@@ -47,6 +47,9 @@ route.post('/', [
         .notEmpty().withMessage("should not be empty."),
     body("last_name")
         .if(body("role_id").equals("3")).exists().withMessage("is required.")
+        .notEmpty().withMessage("should not be empty."),
+    body("rank_id")
+        .if(body("role_id").equals("3")).exists().withMessage("is required.")
         .notEmpty().withMessage("should not be empty.")
 ], async (request: Request, response: Response) => {
     const errors = validationResult(request);
@@ -75,6 +78,7 @@ route.post('/', [
     }
 
     const role_id = request.body.role_id;
+    const rank_id = request.body.rank_id;
     const department_id = request.body.department_id;
     //const areas = request.body.areas;
 
@@ -94,6 +98,9 @@ route.post('/', [
     }
 
     try {
+
+        let first_name = "";
+        let last_name = "";
         const code = crypt.generateCode(9); // Limit by ZKTeco
         if (role_id == 3) {
             const biometric = await prismaClient.biometric.findFirstOrThrow({
@@ -113,9 +120,10 @@ route.post('/', [
                     "Authorization": `Token ${zk.data.token}`
                 }
             });
+
             const device_area_id = parseInt(device.data.area.id);
-            const first_name = request.body.first_name;
-            const last_name = request.body.last_name;
+            first_name = request.body.first_name;
+            last_name = request.body.last_name;
 
             const data = querystring.stringify({
                 emp_code: code,
@@ -154,6 +162,18 @@ route.post('/', [
             }
         });
 
+        if (role_id == 3) {
+
+            const profile = await prismaClient.profile.create({
+                data: {
+                    first_name: first_name,
+                    last_name: last_name,
+                    user_id: user.id,
+                    rank_id: rank_id
+                }
+            });
+        }
+
         const created_user = await prismaClient.user.findFirst({
             where: {
                 id: user.id
@@ -173,6 +193,12 @@ route.post('/', [
                         code: true
                     }
                 },
+                profile: {
+                    select: {
+                        first_name: true,
+                        last_name: true
+                    }
+                }
                 //"areas": true,
             }
         });

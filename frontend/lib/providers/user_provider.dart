@@ -2,7 +2,7 @@ import 'package:flutter/material.dart';
 
 class UserAuthProvider extends ChangeNotifier {
   int userId;
-  String role;
+  int roleId;
   String token;
 
   int code;
@@ -11,10 +11,10 @@ class UserAuthProvider extends ChangeNotifier {
   bool success;
 
   UserAuthProvider(
-      {this.userId = 0,
+      {this.userId = -1,
       this.token = "",
-      this.role = "",
-      this.code = 0,
+      this.roleId = -1,
+      this.code = -1,
       this.message = "",
       this.success = false});
 
@@ -23,7 +23,7 @@ class UserAuthProvider extends ChangeNotifier {
   }) async {
     try {
       userId = userObject["user"]["id"];
-      role = userObject["user"]["role"]["name"];
+      roleId = userObject["user"]["role"]["id"];
       token = userObject["token"];
       success = true;
     } catch (error) {

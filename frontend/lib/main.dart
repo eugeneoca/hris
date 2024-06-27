@@ -3,6 +3,7 @@ import 'package:frontend/constants/colors.dart';
 import 'package:frontend/pages/dashboard.dart';
 import 'package:frontend/pages/login.dart';
 import 'package:frontend/providers/user_provider.dart';
+import 'package:frontend/providers/zkteco_provider.dart';
 import 'package:provider/provider.dart';
 
 void main() {
@@ -17,7 +18,8 @@ class MyApp extends StatelessWidget {
   Widget build(BuildContext context) {
     return MultiProvider(
       providers: [
-        ChangeNotifierProvider(create: (context) => UserAuthProvider())
+        ChangeNotifierProvider(create: (context) => UserAuthProvider()),
+        ChangeNotifierProvider(create: (context) => ZKUserProvider())
       ],
       child: MaterialApp(
         title: 'HRIS',
