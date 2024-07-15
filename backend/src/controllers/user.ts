@@ -16,7 +16,6 @@ route.get('/', [AuthMiddleware.ensureAuthenticated, AuthMiddleware.ensureAdmin],
         select: {
             "id": true,
             "username": true,
-            "code": true,
             "role": {
                 select: {
                     name: true
@@ -148,7 +147,6 @@ route.post('/', [
             data: {
                 username: username,
                 password: <string>encrypted_password,
-                code: code,
                 role_id: role_id,
                 department_id: department_id,
                 // areas: {
@@ -164,12 +162,16 @@ route.post('/', [
 
         if (role_id == 3) {
 
-            const profile = await prismaClient.profile.create({
+            // Include the 'user' field when creating the employee profile
+            const profile = await prismaClient.employee.create({
                 data: {
                     first_name: first_name,
                     last_name: last_name,
-                    user_id: user.id,
-                    rank_id: rank_id
+                    user: {
+                        connect: {
+                            id: user.id
+                        }
+                    }
                 }
             });
         }
@@ -181,7 +183,6 @@ route.post('/', [
             select: {
                 "id": true,
                 "username": true,
-                code: true,
                 "role": {
                     select: {
                         name: true
@@ -193,7 +194,7 @@ route.post('/', [
                         code: true
                     }
                 },
-                profile: {
+                employee_profile: {
                     select: {
                         first_name: true,
                         last_name: true

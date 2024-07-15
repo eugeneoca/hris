@@ -1,6 +1,4 @@
-import 'dart:async';
 import 'dart:convert';
-import 'dart:io';
 
 import 'package:flutter/material.dart';
 import 'package:frontend/constants/api_url.dart';
@@ -32,7 +30,7 @@ class _LoginPageState extends State<LoginPage> {
               flex: 11,
               child: Center(
                 child: SizedBox(
-                  height: 190,
+                  height: 250,
                   width: 600,
                   child: Padding(
                     padding: const EdgeInsets.all(8.0),

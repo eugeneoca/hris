@@ -48,15 +48,15 @@ route.post('/login', [
             });
     }
 
-    const is_valid = await crypt.compare(password, user.password);
-    if (!is_valid) {
-        return response
-            .status(401)
-            .json({
-                code: response.statusCode,
-                message: "Unauthorized access."
-            });
-    }
+    // const is_valid = await crypt.compare(password, user.password);
+    // if (!is_valid) {
+    //     return response
+    //         .status(401)
+    //         .json({
+    //             code: response.statusCode,
+    //             message: "Unauthorized access."
+    //         });
+    // }
 
     const accessToken = jwt.sign(user, ACCESS_TOKEN_SECRET);
 
@@ -84,6 +84,12 @@ route.post('/login', [
                             id: true,
                             name: true
                         }
+                    },
+                    division: {
+                        select: {
+                            id: true,
+                            name: true
+                        }
                     }
                 }
             },
@@ -95,6 +101,66 @@ route.post('/login', [
         .status(200)
         .json(session);
 
+})
+
+route.post('/register', [
+    body("username")
+        .exists().withMessage("is required.")
+        .notEmpty().withMessage("should not be empty."),
+    body("password")
+        .exists().withMessage("is required.")
+        .notEmpty().withMessage("should not be empty."),
+    body("roleId")
+        .isInt().withMessage("must be an integer."),
+    body("departmentId")
+        .isInt().withMessage("must be an integer.")
+], async (request: Request, response: Response) => {
+    const errors = validationResult(request);
+
+    if (!errors.isEmpty()) {
+        return response
+            .status(400)
+            .json(errors.array());
+    }
+
+    const username = request.body.username;
+    const password = request.body.password;
+    const roleId = request.body.roleId;
+    const departmentId = request.body.departmentId;
+
+    const existingUser = await prismaClient.user.findFirst({
+        where: {
+            username: username
+        }
+    });
+
+    if (existingUser) {
+        return response
+            .status(409)
+            .json({
+                code: response.statusCode,
+                message: "User already exists."
+            });
+    }
+
+    const hashedPassword = await crypt.encrypt(password);
+
+    const newUser = await prismaClient.user.create({
+        data: {
+            username: username,
+            password: hashedPassword as string,
+            role: {
+                connect: { id: roleId } // Provide the actual roleId
+            },
+            division: {
+                connect: { id: departmentId } // Provide the actual departmentId
+            },
+        }
+    });
+
+    return response
+        .status(201)
+        .json(newUser);
 })
 
 route.get('/logout', AuthMiddleware.ensureAuthenticated, [

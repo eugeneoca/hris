@@ -10,25 +10,21 @@ generator client {
 
 datasource db {
   provider = "mysql"
-  url      = env("DATABASE_URL")
+  url      = "mysql://root:1234@localhost:3306/hris"
 }
 
-model User{
+model User {
   id Int @id @default(autoincrement())
-
   username String @unique
   password String
-  code String @unique // Randomly Generated
-
   role_id Int
-  department_id Int
-  //areas Area[]
+  division_id Int
 
   role Role @relation(fields: [role_id], references: [id])
-  department Department @relation(fields: [department_id], references: [id])
-  profile Profile?
-  
+  division Division @relation(fields: [division_id], references: [id])
+  employee_profile Employee?
   sessions Session[]
+  timeInOuts TimeInOut[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -36,7 +32,8 @@ model User{
   @@map("users")
 }
 
-model Profile{
+
+model Employee{
   id Int @id @default(autoincrement())
 
   first_name String @unique
@@ -53,35 +50,20 @@ model Profile{
   philhealth String?
   tin_number String?
   position String?
+  rank Int?
   sick_leave_limit Int?
   vacation_leave_limit Int?
   hire_date DateTime?
   termination_date DateTime?
 
   user_id Int @unique
-  rank_id Int @unique
 
   user User @relation(fields: [user_id], references: [id])
-  rank Rank @relation(fields: [rank_id], references: [id])
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  @@map("profiles")
-}
-
-model Rank{
-  id Int @id @default(autoincrement())
-
-  name String @unique
-  order Int?
-
-  users Profile[]
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  @@map("ranks")
+  @@map("employees")
 }
 
 model Role{
@@ -97,33 +79,18 @@ model Role{
   @@map("roles")
 }
 
-model Department{
+model Division{
   id Int @id @default(autoincrement())
 
   name String @unique
-  code String @unique // Randomly generated
 
   users User[]
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
 
-  @@map("department")
+  @@map("division")
 }
-
-// model Area{
-//   id Int @id @default(autoincrement())
-
-//   name String @unique
-//   code String @unique // Randomly generated
-
-//   users User[]
-
-//   created_at DateTime @default(now())
-//   updated_at DateTime @updatedAt
-
-//   @@map("area")
-// }
 
 model Session{
   id Int @id @default(autoincrement())
@@ -140,15 +107,16 @@ model Session{
   @@map("sessions")
 }
 
-model Biometric{
-  id Int @id @default(autoincrement())
+model TimeInOut {
+  id          Int      @id @default(autoincrement())
+  userid      Int
+  time        DateTime
+  date        DateTime
+  type        String
+  geolocation String?
+  imageurl    String?   @db.Text
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
 
-  username String
-  password String
-  is_active Boolean @default(false)
-
-  created_at DateTime @default(now())
-  updated_at DateTime @updatedAt
-
-  @@map("biometrics")
+  user        User     @relation(fields: [userid], references: [id])
 }
