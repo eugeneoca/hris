@@ -9,7 +9,7 @@ const prismaClient = new PrismaClient();
 const route = Router();
 
 // Create Employee
-route.post('/', AuthMiddleware.ensureAdmin, [
+route.post('/create', AuthMiddleware.ensureAdmin, [
     body("username")
         .exists().withMessage("is required.")
         .notEmpty().withMessage("should not be empty."),
@@ -77,7 +77,7 @@ route.post('/', AuthMiddleware.ensureAdmin, [
             profile_picture_url: profilePictureUrl,
             address: address,
             gender: gender,
-            birthday: birthday,
+            birthday: new Date(birthday),
             sss_number: sssNumber,
             pagibig_number: pagibigNumber,
             philhealth: philhealth,
@@ -93,38 +93,54 @@ route.post('/', AuthMiddleware.ensureAdmin, [
             }
         }
     });
-
+    
     return response
         .status(201)
         .json(newEmployee);
 });
 
-// Read Employee
-route.get('/:id', AuthMiddleware.ensureAuthenticated, async (request: Request, response: Response) => {
-    const employeeId = parseInt(request.params.id);
-
-    const employee = await prismaClient.employee.findUnique({
-        where: { id: employeeId },
-        include: { user: true }
-    });
-
-    if (!employee) {
-        return response
-            .status(404)
-            .json({ message: "Employee not found" });
-    }
-
-    return response.json(employee);
-});
-
 // Read All Employees
 route.get('/all', AuthMiddleware.ensureAdmin, async (request: Request, response: Response) => {
-    const employees = await prismaClient.employee.findMany({
-        include: { user: true }
-    });
+    try {
+        const employees = await prismaClient.employee.findMany({
+            include: { user: {
+                include: {
+                    role: true,
+                    division: true
+                }
+            } }
+        });
 
-    return response.json(employees);
+        return response.json(employees);
+    } catch (error) {
+        console.error('Error retrieving all employees:', error);
+        return response.status(500).json({ error: 'Internal Server Error' });
+    }
 });
+
+// Read Employee
+route.get('/:id', AuthMiddleware.ensureAuthenticated, async (request: Request, response: Response) => {
+    try {
+        const employeeId = parseInt(request.params.id);
+
+        const employee = await prismaClient.employee.findUnique({
+            where: { id: employeeId },
+            include: { user: true }
+        });
+
+        if (!employee) {
+            return response
+                .status(404)
+                .json({ message: "Employee not found" });
+        }
+
+        return response.json(employee);
+    } catch (error) {
+        console.error('Error retrieving employee:', error);
+        return response.status(500).json({ error: 'Internal Server Error' });
+    }
+});
+
 
 // Update Employee
 route.put('/:id', AuthMiddleware.ensureAdmin, [

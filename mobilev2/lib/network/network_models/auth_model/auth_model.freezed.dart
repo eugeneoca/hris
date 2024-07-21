@@ -191,8 +191,8 @@ UserModel _$UserModelFromJson(Map<String, dynamic> json) {
 mixin _$UserModel {
   int? get id => throw _privateConstructorUsedError;
   String? get username => throw _privateConstructorUsedError;
-  RoleModel? get role => throw _privateConstructorUsedError;
-  DepartmentModel? get department => throw _privateConstructorUsedError;
+  RolesModel? get role => throw _privateConstructorUsedError;
+  DivisionsModel? get division => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
@@ -206,13 +206,10 @@ abstract class $UserModelCopyWith<$Res> {
       _$UserModelCopyWithImpl<$Res, UserModel>;
   @useResult
   $Res call(
-      {int? id,
-      String? username,
-      RoleModel? role,
-      DepartmentModel? department});
+      {int? id, String? username, RolesModel? role, DivisionsModel? division});
 
-  $RoleModelCopyWith<$Res>? get role;
-  $DepartmentModelCopyWith<$Res>? get department;
+  $RolesModelCopyWith<$Res>? get role;
+  $DivisionsModelCopyWith<$Res>? get division;
 }
 
 /// @nodoc
@@ -231,7 +228,7 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
     Object? id = freezed,
     Object? username = freezed,
     Object? role = freezed,
-    Object? department = freezed,
+    Object? division = freezed,
   }) {
     return _then(_value.copyWith(
       id: freezed == id
@@ -245,35 +242,35 @@ class _$UserModelCopyWithImpl<$Res, $Val extends UserModel>
       role: freezed == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as RoleModel?,
-      department: freezed == department
-          ? _value.department
-          : department // ignore: cast_nullable_to_non_nullable
-              as DepartmentModel?,
+              as RolesModel?,
+      division: freezed == division
+          ? _value.division
+          : division // ignore: cast_nullable_to_non_nullable
+              as DivisionsModel?,
     ) as $Val);
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $RoleModelCopyWith<$Res>? get role {
+  $RolesModelCopyWith<$Res>? get role {
     if (_value.role == null) {
       return null;
     }
 
-    return $RoleModelCopyWith<$Res>(_value.role!, (value) {
+    return $RolesModelCopyWith<$Res>(_value.role!, (value) {
       return _then(_value.copyWith(role: value) as $Val);
     });
   }
 
   @override
   @pragma('vm:prefer-inline')
-  $DepartmentModelCopyWith<$Res>? get department {
-    if (_value.department == null) {
+  $DivisionsModelCopyWith<$Res>? get division {
+    if (_value.division == null) {
       return null;
     }
 
-    return $DepartmentModelCopyWith<$Res>(_value.department!, (value) {
-      return _then(_value.copyWith(department: value) as $Val);
+    return $DivisionsModelCopyWith<$Res>(_value.division!, (value) {
+      return _then(_value.copyWith(division: value) as $Val);
     });
   }
 }
@@ -287,15 +284,12 @@ abstract class _$$UserModelImplCopyWith<$Res>
   @override
   @useResult
   $Res call(
-      {int? id,
-      String? username,
-      RoleModel? role,
-      DepartmentModel? department});
+      {int? id, String? username, RolesModel? role, DivisionsModel? division});
 
   @override
-  $RoleModelCopyWith<$Res>? get role;
+  $RolesModelCopyWith<$Res>? get role;
   @override
-  $DepartmentModelCopyWith<$Res>? get department;
+  $DivisionsModelCopyWith<$Res>? get division;
 }
 
 /// @nodoc
@@ -312,7 +306,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
     Object? id = freezed,
     Object? username = freezed,
     Object? role = freezed,
-    Object? department = freezed,
+    Object? division = freezed,
   }) {
     return _then(_$UserModelImpl(
       id: freezed == id
@@ -326,11 +320,11 @@ class __$$UserModelImplCopyWithImpl<$Res>
       role: freezed == role
           ? _value.role
           : role // ignore: cast_nullable_to_non_nullable
-              as RoleModel?,
-      department: freezed == department
-          ? _value.department
-          : department // ignore: cast_nullable_to_non_nullable
-              as DepartmentModel?,
+              as RolesModel?,
+      division: freezed == division
+          ? _value.division
+          : division // ignore: cast_nullable_to_non_nullable
+              as DivisionsModel?,
     ));
   }
 }
@@ -338,7 +332,7 @@ class __$$UserModelImplCopyWithImpl<$Res>
 /// @nodoc
 @JsonSerializable()
 class _$UserModelImpl implements _UserModel {
-  const _$UserModelImpl({this.id, this.username, this.role, this.department});
+  const _$UserModelImpl({this.id, this.username, this.role, this.division});
 
   factory _$UserModelImpl.fromJson(Map<String, dynamic> json) =>
       _$$UserModelImplFromJson(json);
@@ -348,13 +342,13 @@ class _$UserModelImpl implements _UserModel {
   @override
   final String? username;
   @override
-  final RoleModel? role;
+  final RolesModel? role;
   @override
-  final DepartmentModel? department;
+  final DivisionsModel? division;
 
   @override
   String toString() {
-    return 'UserModel(id: $id, username: $username, role: $role, department: $department)';
+    return 'UserModel(id: $id, username: $username, role: $role, division: $division)';
   }
 
   @override
@@ -366,13 +360,13 @@ class _$UserModelImpl implements _UserModel {
             (identical(other.username, username) ||
                 other.username == username) &&
             (identical(other.role, role) || other.role == role) &&
-            (identical(other.department, department) ||
-                other.department == department));
+            (identical(other.division, division) ||
+                other.division == division));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, id, username, role, department);
+  int get hashCode => Object.hash(runtimeType, id, username, role, division);
 
   @JsonKey(ignore: true)
   @override
@@ -392,8 +386,8 @@ abstract class _UserModel implements UserModel {
   const factory _UserModel(
       {final int? id,
       final String? username,
-      final RoleModel? role,
-      final DepartmentModel? department}) = _$UserModelImpl;
+      final RolesModel? role,
+      final DivisionsModel? division}) = _$UserModelImpl;
 
   factory _UserModel.fromJson(Map<String, dynamic> json) =
       _$UserModelImpl.fromJson;
@@ -403,41 +397,43 @@ abstract class _UserModel implements UserModel {
   @override
   String? get username;
   @override
-  RoleModel? get role;
+  RolesModel? get role;
   @override
-  DepartmentModel? get department;
+  DivisionsModel? get division;
   @override
   @JsonKey(ignore: true)
   _$$UserModelImplCopyWith<_$UserModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
-RoleModel _$RoleModelFromJson(Map<String, dynamic> json) {
-  return _RoleModel.fromJson(json);
+RolesModel _$RolesModelFromJson(Map<String, dynamic> json) {
+  return _RolesModel.fromJson(json);
 }
 
 /// @nodoc
-mixin _$RoleModel {
-  String? get token => throw _privateConstructorUsedError;
+mixin _$RolesModel {
+  int? get id => throw _privateConstructorUsedError;
+  String? get name => throw _privateConstructorUsedError;
 
   Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
   @JsonKey(ignore: true)
-  $RoleModelCopyWith<RoleModel> get copyWith =>
+  $RolesModelCopyWith<RolesModel> get copyWith =>
       throw _privateConstructorUsedError;
 }
 
 /// @nodoc
-abstract class $RoleModelCopyWith<$Res> {
-  factory $RoleModelCopyWith(RoleModel value, $Res Function(RoleModel) then) =
-      _$RoleModelCopyWithImpl<$Res, RoleModel>;
+abstract class $RolesModelCopyWith<$Res> {
+  factory $RolesModelCopyWith(
+          RolesModel value, $Res Function(RolesModel) then) =
+      _$RolesModelCopyWithImpl<$Res, RolesModel>;
   @useResult
-  $Res call({String? token});
+  $Res call({int? id, String? name});
 }
 
 /// @nodoc
-class _$RoleModelCopyWithImpl<$Res, $Val extends RoleModel>
-    implements $RoleModelCopyWith<$Res> {
-  _$RoleModelCopyWithImpl(this._value, this._then);
+class _$RolesModelCopyWithImpl<$Res, $Val extends RolesModel>
+    implements $RolesModelCopyWith<$Res> {
+  _$RolesModelCopyWithImpl(this._value, this._then);
 
   // ignore: unused_field
   final $Val _value;
@@ -447,45 +443,55 @@ class _$RoleModelCopyWithImpl<$Res, $Val extends RoleModel>
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? token = freezed,
+    Object? id = freezed,
+    Object? name = freezed,
   }) {
     return _then(_value.copyWith(
-      token: freezed == token
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String?,
     ) as $Val);
   }
 }
 
 /// @nodoc
-abstract class _$$RoleModelImplCopyWith<$Res>
-    implements $RoleModelCopyWith<$Res> {
-  factory _$$RoleModelImplCopyWith(
-          _$RoleModelImpl value, $Res Function(_$RoleModelImpl) then) =
-      __$$RoleModelImplCopyWithImpl<$Res>;
+abstract class _$$RolesModelImplCopyWith<$Res>
+    implements $RolesModelCopyWith<$Res> {
+  factory _$$RolesModelImplCopyWith(
+          _$RolesModelImpl value, $Res Function(_$RolesModelImpl) then) =
+      __$$RolesModelImplCopyWithImpl<$Res>;
   @override
   @useResult
-  $Res call({String? token});
+  $Res call({int? id, String? name});
 }
 
 /// @nodoc
-class __$$RoleModelImplCopyWithImpl<$Res>
-    extends _$RoleModelCopyWithImpl<$Res, _$RoleModelImpl>
-    implements _$$RoleModelImplCopyWith<$Res> {
-  __$$RoleModelImplCopyWithImpl(
-      _$RoleModelImpl _value, $Res Function(_$RoleModelImpl) _then)
+class __$$RolesModelImplCopyWithImpl<$Res>
+    extends _$RolesModelCopyWithImpl<$Res, _$RolesModelImpl>
+    implements _$$RolesModelImplCopyWith<$Res> {
+  __$$RolesModelImplCopyWithImpl(
+      _$RolesModelImpl _value, $Res Function(_$RolesModelImpl) _then)
       : super(_value, _then);
 
   @pragma('vm:prefer-inline')
   @override
   $Res call({
-    Object? token = freezed,
+    Object? id = freezed,
+    Object? name = freezed,
   }) {
-    return _then(_$RoleModelImpl(
-      token: freezed == token
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
+    return _then(_$RolesModelImpl(
+      id: freezed == id
+          ? _value.id
+          : id // ignore: cast_nullable_to_non_nullable
+              as int?,
+      name: freezed == name
+          ? _value.name
+          : name // ignore: cast_nullable_to_non_nullable
               as String?,
     ));
   }
@@ -493,193 +499,62 @@ class __$$RoleModelImplCopyWithImpl<$Res>
 
 /// @nodoc
 @JsonSerializable()
-class _$RoleModelImpl implements _RoleModel {
-  const _$RoleModelImpl({this.token});
+class _$RolesModelImpl implements _RolesModel {
+  const _$RolesModelImpl({this.id, this.name});
 
-  factory _$RoleModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$RoleModelImplFromJson(json);
+  factory _$RolesModelImpl.fromJson(Map<String, dynamic> json) =>
+      _$$RolesModelImplFromJson(json);
 
   @override
-  final String? token;
+  final int? id;
+  @override
+  final String? name;
 
   @override
   String toString() {
-    return 'RoleModel(token: $token)';
+    return 'RolesModel(id: $id, name: $name)';
   }
 
   @override
   bool operator ==(Object other) {
     return identical(this, other) ||
         (other.runtimeType == runtimeType &&
-            other is _$RoleModelImpl &&
-            (identical(other.token, token) || other.token == token));
+            other is _$RolesModelImpl &&
+            (identical(other.id, id) || other.id == id) &&
+            (identical(other.name, name) || other.name == name));
   }
 
   @JsonKey(ignore: true)
   @override
-  int get hashCode => Object.hash(runtimeType, token);
+  int get hashCode => Object.hash(runtimeType, id, name);
 
   @JsonKey(ignore: true)
   @override
   @pragma('vm:prefer-inline')
-  _$$RoleModelImplCopyWith<_$RoleModelImpl> get copyWith =>
-      __$$RoleModelImplCopyWithImpl<_$RoleModelImpl>(this, _$identity);
+  _$$RolesModelImplCopyWith<_$RolesModelImpl> get copyWith =>
+      __$$RolesModelImplCopyWithImpl<_$RolesModelImpl>(this, _$identity);
 
   @override
   Map<String, dynamic> toJson() {
-    return _$$RoleModelImplToJson(
+    return _$$RolesModelImplToJson(
       this,
     );
   }
 }
 
-abstract class _RoleModel implements RoleModel {
-  const factory _RoleModel({final String? token}) = _$RoleModelImpl;
+abstract class _RolesModel implements RolesModel {
+  const factory _RolesModel({final int? id, final String? name}) =
+      _$RolesModelImpl;
 
-  factory _RoleModel.fromJson(Map<String, dynamic> json) =
-      _$RoleModelImpl.fromJson;
-
-  @override
-  String? get token;
-  @override
-  @JsonKey(ignore: true)
-  _$$RoleModelImplCopyWith<_$RoleModelImpl> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-DepartmentModel _$DepartmentModelFromJson(Map<String, dynamic> json) {
-  return _DepartmentModel.fromJson(json);
-}
-
-/// @nodoc
-mixin _$DepartmentModel {
-  String? get token => throw _privateConstructorUsedError;
-
-  Map<String, dynamic> toJson() => throw _privateConstructorUsedError;
-  @JsonKey(ignore: true)
-  $DepartmentModelCopyWith<DepartmentModel> get copyWith =>
-      throw _privateConstructorUsedError;
-}
-
-/// @nodoc
-abstract class $DepartmentModelCopyWith<$Res> {
-  factory $DepartmentModelCopyWith(
-          DepartmentModel value, $Res Function(DepartmentModel) then) =
-      _$DepartmentModelCopyWithImpl<$Res, DepartmentModel>;
-  @useResult
-  $Res call({String? token});
-}
-
-/// @nodoc
-class _$DepartmentModelCopyWithImpl<$Res, $Val extends DepartmentModel>
-    implements $DepartmentModelCopyWith<$Res> {
-  _$DepartmentModelCopyWithImpl(this._value, this._then);
-
-  // ignore: unused_field
-  final $Val _value;
-  // ignore: unused_field
-  final $Res Function($Val) _then;
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? token = freezed,
-  }) {
-    return _then(_value.copyWith(
-      token: freezed == token
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ) as $Val);
-  }
-}
-
-/// @nodoc
-abstract class _$$DepartmentModelImplCopyWith<$Res>
-    implements $DepartmentModelCopyWith<$Res> {
-  factory _$$DepartmentModelImplCopyWith(_$DepartmentModelImpl value,
-          $Res Function(_$DepartmentModelImpl) then) =
-      __$$DepartmentModelImplCopyWithImpl<$Res>;
-  @override
-  @useResult
-  $Res call({String? token});
-}
-
-/// @nodoc
-class __$$DepartmentModelImplCopyWithImpl<$Res>
-    extends _$DepartmentModelCopyWithImpl<$Res, _$DepartmentModelImpl>
-    implements _$$DepartmentModelImplCopyWith<$Res> {
-  __$$DepartmentModelImplCopyWithImpl(
-      _$DepartmentModelImpl _value, $Res Function(_$DepartmentModelImpl) _then)
-      : super(_value, _then);
-
-  @pragma('vm:prefer-inline')
-  @override
-  $Res call({
-    Object? token = freezed,
-  }) {
-    return _then(_$DepartmentModelImpl(
-      token: freezed == token
-          ? _value.token
-          : token // ignore: cast_nullable_to_non_nullable
-              as String?,
-    ));
-  }
-}
-
-/// @nodoc
-@JsonSerializable()
-class _$DepartmentModelImpl implements _DepartmentModel {
-  const _$DepartmentModelImpl({this.token});
-
-  factory _$DepartmentModelImpl.fromJson(Map<String, dynamic> json) =>
-      _$$DepartmentModelImplFromJson(json);
+  factory _RolesModel.fromJson(Map<String, dynamic> json) =
+      _$RolesModelImpl.fromJson;
 
   @override
-  final String? token;
-
+  int? get id;
   @override
-  String toString() {
-    return 'DepartmentModel(token: $token)';
-  }
-
-  @override
-  bool operator ==(Object other) {
-    return identical(this, other) ||
-        (other.runtimeType == runtimeType &&
-            other is _$DepartmentModelImpl &&
-            (identical(other.token, token) || other.token == token));
-  }
-
-  @JsonKey(ignore: true)
-  @override
-  int get hashCode => Object.hash(runtimeType, token);
-
-  @JsonKey(ignore: true)
-  @override
-  @pragma('vm:prefer-inline')
-  _$$DepartmentModelImplCopyWith<_$DepartmentModelImpl> get copyWith =>
-      __$$DepartmentModelImplCopyWithImpl<_$DepartmentModelImpl>(
-          this, _$identity);
-
-  @override
-  Map<String, dynamic> toJson() {
-    return _$$DepartmentModelImplToJson(
-      this,
-    );
-  }
-}
-
-abstract class _DepartmentModel implements DepartmentModel {
-  const factory _DepartmentModel({final String? token}) = _$DepartmentModelImpl;
-
-  factory _DepartmentModel.fromJson(Map<String, dynamic> json) =
-      _$DepartmentModelImpl.fromJson;
-
-  @override
-  String? get token;
+  String? get name;
   @override
   @JsonKey(ignore: true)
-  _$$DepartmentModelImplCopyWith<_$DepartmentModelImpl> get copyWith =>
+  _$$RolesModelImplCopyWith<_$RolesModelImpl> get copyWith =>
       throw _privateConstructorUsedError;
 }

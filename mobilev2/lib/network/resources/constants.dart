@@ -5,7 +5,7 @@ import 'package:mobilev2/network/resources/data_state.dart';
 
 class NetworkConstants {
   static const baseUrl =
-      "https://db7cf3455c020f8644d971bd05163269.loophole.site/api";
+      "https://f9e459407ba2c3141a00a47e51a8e3a5.loophole.site/api";
 
   Future<DataFailed> datafailed({dynamic errorMessage}) async {
     return DataFailed(DioError(

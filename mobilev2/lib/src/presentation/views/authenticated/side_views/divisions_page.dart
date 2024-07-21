@@ -1,5 +1,8 @@
 import 'package:flutter/material.dart';
+import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
+import 'package:mobilev2/network/network_models/divisions_model/divisions_model.dart';
+import 'package:mobilev2/src/presentation/bloc/divisions_bloc/divisions_bloc.dart';
 
 class DivisionsPage extends StatelessWidget {
   const DivisionsPage({
@@ -8,8 +11,8 @@ class DivisionsPage extends StatelessWidget {
 
   @override
   Widget build(BuildContext context) {
-    return Container(
-      child: Column(
+    return Scaffold(
+      body: Column(
         crossAxisAlignment: CrossAxisAlignment.stretch,
         children: [
           Container(
@@ -20,7 +23,7 @@ class DivisionsPage extends StatelessWidget {
               mainAxisAlignment: MainAxisAlignment.spaceBetween,
               children: [
                 Text(
-                  "Company Divisions",
+                  "Divisions",
                   style: TextStyle(
                     fontSize: 26,
                     color: Colors.black45,
@@ -61,78 +64,74 @@ class DivisionsPage extends StatelessWidget {
               padding: const EdgeInsets.only(left: 50, right: 50),
               margin: const EdgeInsets.only(top: 25, bottom: 25),
               child: SingleChildScrollView(
-                child: DataTable(
-                  headingTextStyle:
-                      const TextStyle(fontWeight: FontWeight.bold),
-                  showCheckboxColumn: true,
-                  border: TableBorder.symmetric(
-                      inside: const BorderSide(width: 0.2)),
-                  decoration: BoxDecoration(
-                      border: Border.all(color: Colors.black38, width: 0.5),
-                      borderRadius: BorderRadius.circular(10)),
-                  columns: const [
-                    DataColumn(
-                      numeric: true,
-                      label: Text("ID"),
-                    ),
-                    DataColumn(
-                      label: Text("Name"),
-                    ),
-                    DataColumn(
-                      label: Text("Created By"),
-                    ),
-                    DataColumn(
-                      label: Text("Created"),
-                    ),
-                    DataColumn(
-                      label: Text("Updated"),
-                    ),
-                  ],
-                  rows: const [
-                    DataRow(
-                      cells: [
-                        DataCell(
-                          Text("1"),
+                child: BlocBuilder<DivisionsBloc, DivisionsState>(
+                  builder: (context, state) {
+                    if (state is SuccessGetDivisionsState) {
+                      List<DivisionsModel> listDivisions =
+                          state.listDivisionsModel;
+
+                      return DataTable(
+                          headingTextStyle:
+                              const TextStyle(fontWeight: FontWeight.bold),
+                          showCheckboxColumn: true,
+                          border: const TableBorder.symmetric(
+                              inside: BorderSide(width: 0.2)),
+                          decoration: BoxDecoration(
+                              border:
+                                  Border.all(color: Colors.black38, width: 0.5),
+                              borderRadius: BorderRadius.circular(10)),
+                          columns: const [
+                            DataColumn(
+                              numeric: true,
+                              label: Text("ID"),
+                            ),
+                            DataColumn(
+                              label: Text("Name"),
+                            ),
+                          ],
+                          rows: listDivisions
+                              .map((e) => DataRow(
+                                    cells: [
+                                      DataCell(
+                                        Text(e.id != null
+                                            ? e.id.toString()
+                                            : ""),
+                                      ),
+                                      DataCell(
+                                        Text(e.name != null
+                                            ? e.name.toString()
+                                            : ""),
+                                      ),
+                                    ],
+                                  ))
+                              .toList());
+                    } else if (state is LoadingDivisionsState) {
+                      return const Center(
+                        child: SizedBox(
+                          width: 40,
+                          height: 40,
+                          child: CircularProgressIndicator(
+                            color: Colors.red,
+                          ),
                         ),
-                        DataCell(
-                          Text("Bodega"),
-                        ),
-                        DataCell(
-                          Text("Eugene Oca"),
-                        ),
-                        DataCell(
-                          Text("Row 1 Col 1"),
-                        ),
-                        DataCell(
-                          Text("Row 1 Col 1"),
-                        ),
-                      ],
-                    ),
-                    DataRow(
-                      cells: [
-                        DataCell(
-                          Text("2"),
-                        ),
-                        DataCell(
-                          Text("Siliran"),
-                        ),
-                        DataCell(
-                          Text("Eugene Oca"),
-                        ),
-                        DataCell(
-                          Text("Row 1 Col 1"),
-                        ),
-                        DataCell(
-                          Text("Row 1 Col 1"),
-                        ),
-                      ],
-                    )
-                  ],
+                      );
+                    }
+
+                    return const SizedBox();
+                  },
                 ),
               ),
             ),
           )
         ],
+      ),
+      floatingActionButton: FloatingActionButton(
+        backgroundColor: Colors.red,
+        onPressed: () {},
+        child: const Icon(
+          Icons.add,
+          color: Colors.white,
+        ),
       ),
     );
   }

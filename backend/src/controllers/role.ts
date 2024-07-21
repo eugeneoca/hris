@@ -6,7 +6,7 @@ import AuthMiddleware from "../helpers/authentication";
 const prismaClient = new PrismaClient();
 const route = Router()
 
-route.get('/', AuthMiddleware.ensureAdmin, async (request: Request, response: Response) => {
+route.get('/all', AuthMiddleware.ensureAdmin, async (request: Request, response: Response) => {
     const roles = await prismaClient.role.findMany();
     response
         .status(200)

@@ -6,6 +6,10 @@ import 'package:mobilev2/main.dart';
 import 'package:mobilev2/network/network_models/auth_model/auth_model.dart';
 import 'package:mobilev2/network/network_repository/auth_repository.dart';
 import 'package:mobilev2/network/resources/data_state.dart';
+import 'package:mobilev2/src/core/call_bloc_helper.dart';
+import 'package:mobilev2/src/presentation/bloc/divisions_bloc/divisions_bloc.dart';
+import 'package:mobilev2/src/presentation/bloc/employees_bloc/employees_bloc.dart';
+import 'package:mobilev2/src/presentation/bloc/roles_bloc/roles_bloc.dart';
 import 'package:mobilev2/src/presentation/views/widgets/custom_snackbar.dart';
 
 part 'auth_event.dart';
@@ -20,6 +24,10 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
 
       if (event is LoginEvent) {
         await _login(emit, event.username, event.password);
+      }
+
+      if (event is LogoutEvent) {
+        await _logout(emit);
       }
     });
   }
@@ -51,12 +59,29 @@ class AuthBloc extends Bloc<AuthEvent, AuthState> {
             content: "Login Success!");
         SharedPrefsUtil()
             .storeString(SharedPrefsHelper.token, authModel.token!);
+
+        divisionsBloc.add(const GetDivisionsEvent());
+        employeesBloc.add(const GetEmployeesEvent());
+        rolesBloc.add(const GetRolesEvent());
+
         emit(const AuthenticatedState());
       } else {
+        CustomSnackbar().showErrorSnackbar(MainApp.navigatorKey.currentContext!,
+            content: "Login Failed!");
         emit(const UnauthenticatedState());
       }
     } else {
+      CustomSnackbar().showErrorSnackbar(MainApp.navigatorKey.currentContext!,
+          content: "Login Failed!");
       emit(const UnauthenticatedState());
     }
+  }
+
+  Future<void> _logout(Emitter<AuthState> emit) async {
+    emit(const LoadingAuthState());
+
+    await SharedPrefsUtil().removeAll();
+
+    emit(const UnauthenticatedState());
   }
 }

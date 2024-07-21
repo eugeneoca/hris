@@ -4,7 +4,10 @@ import 'package:flutter/material.dart';
 import 'package:flutter_svg/flutter_svg.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mobilev2/src/core/asset_helper.dart';
+import 'package:mobilev2/src/core/call_bloc_helper.dart';
 import 'package:mobilev2/src/core/constants.dart';
+import 'package:mobilev2/src/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:mobilev2/src/presentation/views/authenticated/side_views/home_page.dart';
 import 'package:mobilev2/src/presentation/views/authenticated/side_views/settings_page.dart';
 import 'package:mobilev2/src/presentation/views/authenticated/side_views/attendance_page.dart';
 import 'package:mobilev2/src/presentation/views/authenticated/side_views/divisions_page.dart';
@@ -24,14 +27,15 @@ class WrapperPage extends StatefulWidget {
 
 class _WrapperPageState extends State<WrapperPage> {
   final List<Widget> _pages = [
-    const OverviewPage(),
+    // const OverviewPage(),
+    const HomePage(),
     const DivisionsPage(),
-    const RanksPage(),
-    const SalaryPackagesPage(),
+    // const RanksPage(),
+    // const SalaryPackagesPage(),
     const EmployeesPage(),
-    const AttendancePage(),
-    const PayrollPage(),
-    const IntegrationPage(),
+    // const AttendancePage(),
+    // const PayrollPage(),
+    // const IntegrationPage(),
     const SettingsPage()
   ];
 
@@ -75,16 +79,26 @@ class _WrapperPageState extends State<WrapperPage> {
                   },
                   labelType: labelType,
                   destinations: [
+                    // const NavigationRailDestination(
+                    //   icon: Icon(
+                    //     FontAwesomeIcons.chartPie,
+                    //   ),
+                    //   selectedIcon: Icon(
+                    //     FontAwesomeIcons.chartPie,
+                    //     color: Colors.red,
+                    //   ),
+                    //   label: Text('Overview'),
+                    // ),
                     const NavigationRailDestination(
-                      icon: Icon(
-                        FontAwesomeIcons.chartPie,
-                      ),
-                      selectedIcon: Icon(
-                        FontAwesomeIcons.chartPie,
-                        color: Colors.red,
-                      ),
-                      label: Text('Overview'),
-                    ),
+                        icon: Icon(
+                          FontAwesomeIcons.home,
+                        ),
+                        selectedIcon: Icon(
+                          FontAwesomeIcons.home,
+                          color: Colors.red,
+                        ),
+                        label: Text('Home'),
+                        padding: EdgeInsets.symmetric(vertical: 10)),
                     const NavigationRailDestination(
                         icon: Icon(
                           FontAwesomeIcons.userGroup,
@@ -95,29 +109,29 @@ class _WrapperPageState extends State<WrapperPage> {
                         ),
                         label: Text('Divisions'),
                         padding: EdgeInsets.symmetric(vertical: 10)),
-                    const NavigationRailDestination(
-                        icon: Icon(
-                          FontAwesomeIcons.rankingStar,
-                        ),
-                        selectedIcon: Icon(
-                          FontAwesomeIcons.rankingStar,
-                          color: Colors.red,
-                        ),
-                        label: Text('Ranks'),
-                        padding: EdgeInsets.symmetric(vertical: 10)),
-                    const NavigationRailDestination(
-                        icon: Icon(
-                          FontAwesomeIcons.boxesPacking,
-                        ),
-                        selectedIcon: Icon(
-                          FontAwesomeIcons.boxesPacking,
-                          color: Colors.red,
-                        ),
-                        label: Text(
-                          'Salary\nPackages',
-                          textAlign: TextAlign.center,
-                        ),
-                        padding: EdgeInsets.symmetric(vertical: 10)),
+                    // const NavigationRailDestination(
+                    //     icon: Icon(
+                    //       FontAwesomeIcons.rankingStar,
+                    //     ),
+                    //     selectedIcon: Icon(
+                    //       FontAwesomeIcons.rankingStar,
+                    //       color: Colors.red,
+                    //     ),
+                    //     label: Text('Ranks'),
+                    //     padding: EdgeInsets.symmetric(vertical: 10)),
+                    // const NavigationRailDestination(
+                    //     icon: Icon(
+                    //       FontAwesomeIcons.boxesPacking,
+                    //     ),
+                    //     selectedIcon: Icon(
+                    //       FontAwesomeIcons.boxesPacking,
+                    //       color: Colors.red,
+                    //     ),
+                    //     label: Text(
+                    //       'Salary\nPackages',
+                    //       textAlign: TextAlign.center,
+                    //     ),
+                    //     padding: EdgeInsets.symmetric(vertical: 10)),
                     const NavigationRailDestination(
                         icon: Icon(
                           FontAwesomeIcons.users,
@@ -128,36 +142,36 @@ class _WrapperPageState extends State<WrapperPage> {
                         ),
                         label: Text('Employees'),
                         padding: EdgeInsets.symmetric(vertical: 10)),
-                    const NavigationRailDestination(
-                        icon: Icon(
-                          FontAwesomeIcons.calendarDays,
-                        ),
-                        selectedIcon: Icon(
-                          FontAwesomeIcons.calendarDays,
-                          color: Colors.red,
-                        ),
-                        label: Text('Attendance'),
-                        padding: EdgeInsets.symmetric(vertical: 10)),
-                    const NavigationRailDestination(
-                        icon: Icon(
-                          FontAwesomeIcons.creditCard,
-                        ),
-                        selectedIcon: Icon(
-                          FontAwesomeIcons.creditCard,
-                          color: Colors.red,
-                        ),
-                        label: Text('Payroll'),
-                        padding: EdgeInsets.symmetric(vertical: 10)),
-                    const NavigationRailDestination(
-                        icon: Icon(
-                          FontAwesomeIcons.mixer,
-                        ),
-                        selectedIcon: Icon(
-                          FontAwesomeIcons.mixer,
-                          color: Colors.red,
-                        ),
-                        label: Text('Integration'),
-                        padding: EdgeInsets.symmetric(vertical: 10)),
+                    // const NavigationRailDestination(
+                    //     icon: Icon(
+                    //       FontAwesomeIcons.calendarDays,
+                    //     ),
+                    //     selectedIcon: Icon(
+                    //       FontAwesomeIcons.calendarDays,
+                    //       color: Colors.red,
+                    //     ),
+                    //     label: Text('Attendance'),
+                    //     padding: EdgeInsets.symmetric(vertical: 10)),
+                    // const NavigationRailDestination(
+                    //     icon: Icon(
+                    //       FontAwesomeIcons.creditCard,
+                    //     ),
+                    //     selectedIcon: Icon(
+                    //       FontAwesomeIcons.creditCard,
+                    //       color: Colors.red,
+                    //     ),
+                    //     label: Text('Payroll'),
+                    //     padding: EdgeInsets.symmetric(vertical: 10)),
+                    // const NavigationRailDestination(
+                    //     icon: Icon(
+                    //       FontAwesomeIcons.mixer,
+                    //     ),
+                    //     selectedIcon: Icon(
+                    //       FontAwesomeIcons.mixer,
+                    //       color: Colors.red,
+                    //     ),
+                    //     label: Text('Integration'),
+                    //     padding: EdgeInsets.symmetric(vertical: 10)),
                     NavigationRailDestination(
                       icon: SvgPicture.asset(
                         AssetHelper.settings,
@@ -170,26 +184,29 @@ class _WrapperPageState extends State<WrapperPage> {
                       label: const Text('Settings'),
                     ),
                   ],
-                  trailing: Container(
-                    padding: const EdgeInsets.symmetric(vertical: 10),
-                    child: Column(
-                      mainAxisAlignment: MainAxisAlignment.end,
-                      children: [
-                        const NavigationRailDestination(
-                          icon: Icon(
-                            FontAwesomeIcons.arrowRightFromBracket,
+                  trailing: InkWell(
+                    onTap: () => authBloc.add(const LogoutEvent()),
+                    child: Container(
+                      padding: const EdgeInsets.symmetric(vertical: 10),
+                      child: Column(
+                        mainAxisAlignment: MainAxisAlignment.end,
+                        children: [
+                          const NavigationRailDestination(
+                            icon: Icon(
+                              FontAwesomeIcons.arrowRightFromBracket,
+                            ),
+                            selectedIcon: Icon(
+                              FontAwesomeIcons.arrowRightFromBracket,
+                              color: Colors.red,
+                            ),
+                            label: Text('Log Out'),
+                          ).icon,
+                          const Padding(
+                            padding: EdgeInsets.symmetric(vertical: 8.0),
+                            child: Text('Log Out'),
                           ),
-                          selectedIcon: Icon(
-                            FontAwesomeIcons.arrowRightFromBracket,
-                            color: Colors.red,
-                          ),
-                          label: Text('Log Out'),
-                        ).icon,
-                        const Padding(
-                          padding: EdgeInsets.symmetric(vertical: 8.0),
-                          child: Text('Log Out'),
-                        ),
-                      ],
+                        ],
+                      ),
                     ),
                   ),
                 ),

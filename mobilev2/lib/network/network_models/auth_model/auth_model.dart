@@ -1,4 +1,5 @@
 import 'package:freezed_annotation/freezed_annotation.dart';
+import 'package:mobilev2/network/network_models/divisions_model/divisions_model.dart';
 part 'auth_model.freezed.dart';
 part 'auth_model.g.dart';
 
@@ -15,25 +16,17 @@ class UserModel with _$UserModel {
   const factory UserModel(
       {int? id,
       String? username,
-      RoleModel? role,
-      DepartmentModel? department}) = _UserModel;
+      RolesModel? role,
+      DivisionsModel? division}) = _UserModel;
 
   factory UserModel.fromJson(Map<String, dynamic> json) =>
       _$UserModelFromJson(json);
 }
 
 @Freezed()
-class RoleModel with _$RoleModel {
-  const factory RoleModel({String? token}) = _RoleModel;
+class RolesModel with _$RolesModel {
+  const factory RolesModel({int? id, String? name}) = _RolesModel;
 
-  factory RoleModel.fromJson(Map<String, dynamic> json) =>
-      _$RoleModelFromJson(json);
-}
-
-@Freezed()
-class DepartmentModel with _$DepartmentModel {
-  const factory DepartmentModel({String? token}) = _DepartmentModel;
-
-  factory DepartmentModel.fromJson(Map<String, dynamic> json) =>
-      _$DepartmentModelFromJson(json);
+  factory RolesModel.fromJson(Map<String, dynamic> json) =>
+      _$RolesModelFromJson(json);
 }

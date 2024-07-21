@@ -26,11 +26,10 @@ _$UserModelImpl _$$UserModelImplFromJson(Map<String, dynamic> json) =>
       username: json['username'] as String?,
       role: json['role'] == null
           ? null
-          : RoleModel.fromJson(json['role'] as Map<String, dynamic>),
-      department: json['department'] == null
+          : RolesModel.fromJson(json['role'] as Map<String, dynamic>),
+      division: json['division'] == null
           ? null
-          : DepartmentModel.fromJson(
-              json['department'] as Map<String, dynamic>),
+          : DivisionsModel.fromJson(json['division'] as Map<String, dynamic>),
     );
 
 Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
@@ -38,27 +37,17 @@ Map<String, dynamic> _$$UserModelImplToJson(_$UserModelImpl instance) =>
       'id': instance.id,
       'username': instance.username,
       'role': instance.role,
-      'department': instance.department,
+      'division': instance.division,
     };
 
-_$RoleModelImpl _$$RoleModelImplFromJson(Map<String, dynamic> json) =>
-    _$RoleModelImpl(
-      token: json['token'] as String?,
+_$RolesModelImpl _$$RolesModelImplFromJson(Map<String, dynamic> json) =>
+    _$RolesModelImpl(
+      id: (json['id'] as num?)?.toInt(),
+      name: json['name'] as String?,
     );
 
-Map<String, dynamic> _$$RoleModelImplToJson(_$RoleModelImpl instance) =>
+Map<String, dynamic> _$$RolesModelImplToJson(_$RolesModelImpl instance) =>
     <String, dynamic>{
-      'token': instance.token,
-    };
-
-_$DepartmentModelImpl _$$DepartmentModelImplFromJson(
-        Map<String, dynamic> json) =>
-    _$DepartmentModelImpl(
-      token: json['token'] as String?,
-    );
-
-Map<String, dynamic> _$$DepartmentModelImplToJson(
-        _$DepartmentModelImpl instance) =>
-    <String, dynamic>{
-      'token': instance.token,
+      'id': instance.id,
+      'name': instance.name,
     };

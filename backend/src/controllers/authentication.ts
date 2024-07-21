@@ -6,6 +6,7 @@ import { PrismaClient } from "@prisma/client";
 import jwt from "jsonwebtoken";
 import { configDotenv } from "dotenv";
 import AuthMiddleware from "../helpers/authentication";
+import axios from "axios";
 
 configDotenv()
 
@@ -59,15 +60,6 @@ route.post('/login', [
     // }
 
     const accessToken = jwt.sign(user, ACCESS_TOKEN_SECRET);
-
-    await prismaClient.session.updateMany({
-        where: {
-            user_id: user.id
-        },
-        data: {
-            is_active: false
-        }
-    });
 
     const session = await prismaClient.session.create({
         data: {

@@ -1,6 +1,6 @@
 import 'package:flutter/material.dart';
 import 'package:mobilev2/src/core/call_bloc_helper.dart';
-import 'package:mobilev2/src/presentation/bloc/auth_bloc.dart';
+import 'package:mobilev2/src/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:mobilev2/src/presentation/views/widgets/custom_snackbar.dart';
 import 'package:mobilev2/src/presentation/views/widgets/user_field.dart';
 

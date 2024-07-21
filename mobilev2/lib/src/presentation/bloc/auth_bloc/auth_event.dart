@@ -16,3 +16,7 @@ class LoginEvent extends AuthEvent {
   final String password;
   const LoginEvent({required this.username, required this.password});
 }
+
+class LogoutEvent extends AuthEvent {
+  const LogoutEvent();
+}

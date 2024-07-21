@@ -5,9 +5,22 @@ async function seedFunction(prismaClient: any) {
         data: {
             username: "administrator",
             password: "$hack",
-            role_id: 1,
-            code: "test",
-            department_id: 1,
+            role: {
+                connect: 
+                    { name: "administrator" }
+                
+            },
+            division: {
+                connect: 
+                    { name: "bodega" }
+                
+            },
+            employee_profile: {
+                create: {
+                    first_name: "Admin",
+                    last_name: "Admin"
+                }
+            }
         }
     })
 }

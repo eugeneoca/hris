@@ -78,7 +78,7 @@ route.post('/', [
 
     const role_id = request.body.role_id;
     const rank_id = request.body.rank_id;
-    const department_id = request.body.department_id;
+    const division_id = request.body.division_id;
     //const areas = request.body.areas;
 
     const role_exists = !!await prismaClient.role.findFirst({
@@ -101,45 +101,45 @@ route.post('/', [
         let first_name = "";
         let last_name = "";
         const code = crypt.generateCode(9); // Limit by ZKTeco
-        if (role_id == 3) {
-            const biometric = await prismaClient.biometric.findFirstOrThrow({
-                where: {
-                    is_active: true
-                }
-            });
+        // if (role_id == 3) {
+        //     const biometric = await prismaClient.biometric.findFirstOrThrow({
+        //         where: {
+        //             is_active: true
+        //         }
+        //     });
 
-            const credentials = querystring.stringify({
-                username: biometric.username,
-                password: biometric.password
-            });
-            const zk = await axios.post(`${process.env.ZK_TECO_API_URL}/api-token-auth/`, credentials);
+        //     const credentials = querystring.stringify({
+        //         username: biometric.username,
+        //         password: biometric.password
+        //     });
+        //     const zk = await axios.post(`${process.env.ZK_TECO_API_URL}/api-token-auth/`, credentials);
 
-            const device = await axios.get(`${process.env.ZK_TECO_API_URL}/iclock/api/terminals/1/`, {
-                headers: {
-                    "Authorization": `Token ${zk.data.token}`
-                }
-            });
+        //     const device = await axios.get(`${process.env.ZK_TECO_API_URL}/iclock/api/terminals/1/`, {
+        //         headers: {
+        //             "Authorization": `Token ${zk.data.token}`
+        //         }
+        //     });
 
-            const device_area_id = parseInt(device.data.area.id);
-            first_name = request.body.first_name;
-            last_name = request.body.last_name;
+        //     const device_area_id = parseInt(device.data.area.id);
+        //     first_name = request.body.first_name;
+        //     last_name = request.body.last_name;
 
-            const data = querystring.stringify({
-                emp_code: code,
-                department: department_id,
-                first_name: first_name,
-                last_name: last_name,
-                area: [device_area_id]
-            });
+        //     const data = querystring.stringify({
+        //         emp_code: code,
+        //         department: division_id,
+        //         first_name: first_name,
+        //         last_name: last_name,
+        //         area: [device_area_id]
+        //     });
 
 
-            await axios.post(`${process.env.ZK_TECO_API_URL}/personnel/api/employees/`, data,
-                {
-                    headers: {
-                        "Authorization": `Token ${zk.data.token}`
-                    }
-                });
-        }
+        //     await axios.post(`${process.env.ZK_TECO_API_URL}/personnel/api/employees/`, data,
+        //         {
+        //             headers: {
+        //                 "Authorization": `Token ${zk.data.token}`
+        //             }
+        //         });
+        // }
         const password = request.body.password;
         const encrypted_password = await crypt.encrypt(password);
 
@@ -148,14 +148,11 @@ route.post('/', [
                 username: username,
                 password: <string>encrypted_password,
                 role_id: role_id,
-                department_id: department_id,
-                // areas: {
-                //     connect: areas.map(function (id: Number) { return { id }; })
-                // }
+                division_id: division_id,
             },
             include: {
                 role: true,
-                department: true,
+                division: true,
                 //areas: true,
             }
         });
@@ -188,10 +185,9 @@ route.post('/', [
                         name: true
                     }
                 },
-                "department": {
+                "division": {
                     select: {
                         name: true,
-                        code: true
                     }
                 },
                 employee_profile: {
