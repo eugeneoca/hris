@@ -8,6 +8,7 @@ import AuthMiddleware from "../helpers/authentication";
 import TimeInOutController from "../controllers/timeinout";
 import DivisionsController from "../controllers/division";
 import EmployeesController from "../controllers/employees";
+import ProductionValuesController from "../controllers/productionvalues";
 
 const route = express.Router()
 
@@ -22,5 +23,6 @@ route.use('/auth', AuthenticationController);
 // route.use('/zkteco/transactions', TransactionController);
 route.use('/timeinout', TimeInOutController);
 route.use('/employees', EmployeesController);
+route.use('/productionvalues', ProductionValuesController);
 
 export default route;

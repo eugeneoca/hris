@@ -2,8 +2,10 @@ import 'package:flutter/material.dart';
 // import 'package:geolocator/geolocator.dart';
 import 'package:image_picker/image_picker.dart';
 import 'package:location/location.dart';
+import 'package:remoteworkermobile/src/core/call_bloc_helper.dart';
 // import 'package:location/location.dart';
 import 'package:remoteworkermobile/src/core/constants.dart';
+import 'package:remoteworkermobile/src/presentation/bloc/timeinout_bloc/bloc/timeinout_bloc.dart';
 import 'package:remoteworkermobile/src/presentation/views/widgets/custom_text.dart';
 
 class DashboardPage extends StatefulWidget {
@@ -14,7 +16,7 @@ class DashboardPage extends StatefulWidget {
 }
 
 class _DashboardPageState extends State<DashboardPage> {
-  Future<void> _capturePhotoAndLocation() async {
+  Future<void> _capturePhotoAndLocation({required String type}) async {
     // Capture the photo using the front camera
     final ImagePicker _picker = ImagePicker();
     final XFile? photo = await _picker.pickImage(
@@ -64,6 +66,9 @@ class _DashboardPageState extends State<DashboardPage> {
       _locationData = await location.getLocation();
       print(
           'Current location: ${_locationData.latitude}, ${_locationData.longitude}');
+
+      timeinoutBloc.add(ProdTimeinoutEvent(type,
+          "${_locationData.latitude}, ${_locationData.longitude}", photo));
     }
   }
 
@@ -144,7 +149,7 @@ class _DashboardPageState extends State<DashboardPage> {
       child: Material(
         type: MaterialType.transparency,
         child: InkWell(
-          onTap: () => _capturePhotoAndLocation(),
+          onTap: () => _capturePhotoAndLocation(type: "IN"),
           child: const Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,
@@ -189,7 +194,7 @@ class _DashboardPageState extends State<DashboardPage> {
       child: Material(
         type: MaterialType.transparency,
         child: InkWell(
-          onTap: () => _capturePhotoAndLocation(),
+          onTap: () => _capturePhotoAndLocation(type: "OUT"),
           child: const Center(
             child: Column(
               crossAxisAlignment: CrossAxisAlignment.center,

@@ -10,3 +10,8 @@ abstract class DivisionsEvent extends Equatable {
 class GetDivisionsEvent extends DivisionsEvent {
   const GetDivisionsEvent();
 }
+
+class CreateDivisionsEvent extends DivisionsEvent {
+  final String divisionName;
+  const CreateDivisionsEvent(this.divisionName);
+}

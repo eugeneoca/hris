@@ -20,6 +20,8 @@ class TimeInOutRepository {
     required XFile image,
   }) async {
     try {
+      final headers = await NetworkConstants().getHeaders();
+
       FormData formData = FormData.fromMap({
         'userid': userid,
         'time': time.toIso8601String(),
@@ -31,8 +33,10 @@ class TimeInOutRepository {
 
       final request = await Dio().post(
           '${NetworkConstants.baseUrl}/timeinout/create/',
-          data: formData);
+          data: formData,
+          options: Options(headers: headers));
 
+      Logger().e(request);
       if (request.statusCode == HttpStatus.created) {
         return DataSuccess(TimeInOutModel.fromJson(request.data));
       } else {

@@ -23,3 +23,15 @@ class SuccessGetDivisionsState extends DivisionsState {
 class ErrorGetDivisionsState extends DivisionsState {
   const ErrorGetDivisionsState();
 }
+
+class LoadingCreateDivisionsState extends DivisionsState {
+  const LoadingCreateDivisionsState();
+}
+
+class SuccessCreateDivisionsState extends DivisionsState {
+  const SuccessCreateDivisionsState();
+}
+
+class ErrorCreateDivisionsState extends DivisionsState {
+  const ErrorCreateDivisionsState();
+}

@@ -1,4 +1,3 @@
-import 'package:desktop_window/desktop_window.dart';
 import 'package:flutter/material.dart';
 import 'package:flutter/services.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
@@ -7,6 +6,7 @@ import 'package:mobilev2/src/config/app_routes.dart';
 import 'package:mobilev2/src/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:mobilev2/src/presentation/bloc/divisions_bloc/divisions_bloc.dart';
 import 'package:mobilev2/src/presentation/bloc/employees_bloc/employees_bloc.dart';
+import 'package:mobilev2/src/presentation/bloc/production_values_bloc/production_values_bloc.dart';
 import 'package:mobilev2/src/presentation/bloc/roles_bloc/roles_bloc.dart';
 
 void main() {
@@ -16,15 +16,9 @@ void main() {
     DeviceOrientation.landscapeRight,
     DeviceOrientation.landscapeLeft,
   ]).then((_) async {
-    await setWindowFunctions();
     await Injector().initializeDependencies();
     runApp(const MainApp());
   });
-}
-
-Future setWindowFunctions() async {
-  await DesktopWindow.setMinWindowSize(const Size(400, 400));
-  await DesktopWindow.setMaxWindowSize(const Size(800, 800));
 }
 
 class MainApp extends StatefulWidget {
@@ -52,11 +46,13 @@ class _MainAppState extends State<MainApp> {
             create: (_) => injector()..add(const GetEmployeesEvent())),
         BlocProvider<RolesBloc>(
             create: (_) => injector()..add(const GetRolesEvent())),
+        BlocProvider<ProductionValuesBloc>(
+            create: (_) => injector()..add(const InitializeProductionValues())),
       ],
       child: KeyedSubtree(
         key: key,
         child: MaterialApp(
-          title: 'POS APP',
+          title: 'HRIS',
           debugShowCheckedModeBanner: false,
           onGenerateRoute: AppRoutes.onGenerateRoutes,
           navigatorKey: MainApp.navigatorKey,

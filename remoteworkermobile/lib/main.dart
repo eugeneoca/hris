@@ -4,6 +4,7 @@ import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:remoteworkermobile/network/injector.dart';
 import 'package:remoteworkermobile/src/config/app_routes.dart';
 import 'package:remoteworkermobile/src/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:remoteworkermobile/src/presentation/bloc/timeinout_bloc/bloc/timeinout_bloc.dart';
 
 import 'package:responsive_framework/responsive_framework.dart';
 
@@ -37,6 +38,8 @@ class _MainAppState extends State<MainApp> {
       providers: [
         BlocProvider<AuthBloc>(
             create: (_) => injector()..add(const GetStoredAuthEvent())),
+        BlocProvider<TimeinoutBloc>(
+            create: (_) => injector()..add(const InitializeTimeinoutEvent())),
       ],
       child: KeyedSubtree(
         key: key,

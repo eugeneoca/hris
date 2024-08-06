@@ -7,16 +7,10 @@ import 'package:mobilev2/src/core/asset_helper.dart';
 import 'package:mobilev2/src/core/call_bloc_helper.dart';
 import 'package:mobilev2/src/core/constants.dart';
 import 'package:mobilev2/src/presentation/bloc/auth_bloc/auth_bloc.dart';
-import 'package:mobilev2/src/presentation/views/authenticated/side_views/home_page.dart';
-import 'package:mobilev2/src/presentation/views/authenticated/side_views/settings_page.dart';
-import 'package:mobilev2/src/presentation/views/authenticated/side_views/attendance_page.dart';
 import 'package:mobilev2/src/presentation/views/authenticated/side_views/divisions_page.dart';
 import 'package:mobilev2/src/presentation/views/authenticated/side_views/employees_page.dart';
-import 'package:mobilev2/src/presentation/views/authenticated/side_views/integration_page.dart';
-import 'package:mobilev2/src/presentation/views/authenticated/side_views/overview_page.dart';
-import 'package:mobilev2/src/presentation/views/authenticated/side_views/payroll_page.dart';
-import 'package:mobilev2/src/presentation/views/authenticated/side_views/ranks_page.dart';
-import 'package:mobilev2/src/presentation/views/authenticated/side_views/salary_packages_page.dart';
+import 'package:mobilev2/src/presentation/views/authenticated/side_views/home_page.dart';
+import 'package:mobilev2/src/presentation/views/authenticated/side_views/settings_page.dart';
 
 class WrapperPage extends StatefulWidget {
   const WrapperPage({super.key});

@@ -8,7 +8,11 @@ const prismaClient = new PrismaClient();
 const route = Router()
 
 const admin = require('firebase-admin');
-const serviceAccount = require('C:/Users/admin/Documents/hris/backend/hris-bdce1-firebase-adminsdk-d8fpz-eec27e4ba5.json');
+const path = require('path');
+
+const serviceAccountPath = path.resolve(__dirname, '../../hris-bdce1-firebase-adminsdk-d8fpz-eec27e4ba5.json');
+// const serviceAccount = require('./hris-bdce1-firebase-adminsdk-d8fpz-eec27e4ba5.json');
+const serviceAccount = require(serviceAccountPath);
 
 admin.initializeApp({
   credential: admin.credential.cert(serviceAccount),

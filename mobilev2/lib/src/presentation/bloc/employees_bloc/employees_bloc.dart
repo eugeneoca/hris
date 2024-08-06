@@ -100,15 +100,15 @@ class EmployeesBloc extends Bloc<EmployeesEvent, EmployeesState> {
       CustomSnackbar().showSuccessSnackbar(MainApp.navigatorKey.currentContext!,
           content: "Employee Created!");
 
-      divisionsBloc.add(const GetDivisionsEvent());
-      employeesBloc.add(const GetEmployeesEvent());
-      rolesBloc.add(const GetRolesEvent());
-
       emit(const SuccessCreateEmployeesState());
     } else {
       CustomSnackbar().showErrorSnackbar(MainApp.navigatorKey.currentContext!,
           content: "Employee Creation Failed!");
       emit(const ErrorCreateEmployeesState());
     }
+
+    divisionsBloc.add(const GetDivisionsEvent());
+    employeesBloc.add(const GetEmployeesEvent());
+    rolesBloc.add(const GetRolesEvent());
   }
 }

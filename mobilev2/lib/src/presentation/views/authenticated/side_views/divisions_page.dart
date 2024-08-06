@@ -2,12 +2,77 @@ import 'package:flutter/material.dart';
 import 'package:flutter_bloc/flutter_bloc.dart';
 import 'package:font_awesome_flutter/font_awesome_flutter.dart';
 import 'package:mobilev2/network/network_models/divisions_model/divisions_model.dart';
+import 'package:mobilev2/src/core/call_bloc_helper.dart';
 import 'package:mobilev2/src/presentation/bloc/divisions_bloc/divisions_bloc.dart';
 
-class DivisionsPage extends StatelessWidget {
+class DivisionsPage extends StatefulWidget {
   const DivisionsPage({
     super.key,
   });
+
+  @override
+  State<DivisionsPage> createState() => _DivisionsPageState();
+}
+
+class _DivisionsPageState extends State<DivisionsPage> {
+  final TextEditingController _divisionNameController = TextEditingController();
+
+  void _showCustomDialog() {
+    showDialog(
+      context: context,
+      builder: (BuildContext context) {
+        return Dialog(
+          shape: RoundedRectangleBorder(
+            borderRadius: BorderRadius.circular(10),
+          ),
+          child: Container(
+            width: MediaQuery.of(context).size.width *
+                0.4, // Adjust the width as needed
+            padding: const EdgeInsets.all(16),
+            child: SingleChildScrollView(
+              child: Column(
+                mainAxisSize: MainAxisSize.min,
+                crossAxisAlignment: CrossAxisAlignment.start,
+                children: [
+                  const Text(
+                    'Add Division',
+                    style: TextStyle(fontSize: 18, fontWeight: FontWeight.bold),
+                  ),
+                  const SizedBox(height: 16),
+                  TextField(
+                    controller: _divisionNameController,
+                    decoration:
+                        const InputDecoration(hintText: 'Division Name'),
+                  ),
+                  const SizedBox(height: 16),
+                  Row(
+                    mainAxisAlignment: MainAxisAlignment.end,
+                    children: [
+                      TextButton(
+                        child: const Text('CANCEL'),
+                        onPressed: () {
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                      const SizedBox(width: 8),
+                      TextButton(
+                        child: const Text('OK'),
+                        onPressed: () {
+                          divisionsBloc.add(CreateDivisionsEvent(
+                              _divisionNameController.text));
+                          Navigator.of(context).pop();
+                        },
+                      ),
+                    ],
+                  ),
+                ],
+              ),
+            ),
+          ),
+        );
+      },
+    );
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -127,7 +192,7 @@ class DivisionsPage extends StatelessWidget {
       ),
       floatingActionButton: FloatingActionButton(
         backgroundColor: Colors.red,
-        onPressed: () {},
+        onPressed: () => _showCustomDialog(),
         child: const Icon(
           Icons.add,
           color: Colors.white,

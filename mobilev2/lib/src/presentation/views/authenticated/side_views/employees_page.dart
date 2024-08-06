@@ -40,8 +40,6 @@ class _EmployeesPageState extends State<EmployeesPage> {
 
   String? _selectedGender;
 
-  final List<String> _countries = ['USA', 'Canada', 'Mexico'];
-  final List<String> _cities = ['New York', 'Toronto', 'Mexico City'];
   final List<String> _genders = ["Male", "Female", "Others"];
 
   DateTime? _selectedDate;
@@ -366,6 +364,12 @@ class _EmployeesPageState extends State<EmployeesPage> {
                                 label: Text("Middle Name"),
                               ),
                               DataColumn(
+                                label: Text("Division"),
+                              ),
+                              DataColumn(
+                                label: Text("Role"),
+                              ),
+                              DataColumn(
                                 label: Text("Mobile"),
                               ),
                               DataColumn(
@@ -409,6 +413,17 @@ class _EmployeesPageState extends State<EmployeesPage> {
                                         DataCell(
                                           Text(e.middleName != null
                                               ? e.middleName.toString()
+                                              : ""),
+                                        ),
+                                        DataCell(
+                                          Text(e.user?.division?.name != null
+                                              ? e.user!.division!.name
+                                                  .toString()
+                                              : ""),
+                                        ),
+                                        DataCell(
+                                          Text(e.user?.role?.name != null
+                                              ? e.user!.role!.name.toString()
                                               : ""),
                                         ),
                                         DataCell(

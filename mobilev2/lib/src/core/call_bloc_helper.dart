@@ -3,6 +3,7 @@ import 'package:mobilev2/main.dart';
 import 'package:mobilev2/src/presentation/bloc/auth_bloc/auth_bloc.dart';
 import 'package:mobilev2/src/presentation/bloc/divisions_bloc/divisions_bloc.dart';
 import 'package:mobilev2/src/presentation/bloc/employees_bloc/employees_bloc.dart';
+import 'package:mobilev2/src/presentation/bloc/production_values_bloc/production_values_bloc.dart';
 import 'package:mobilev2/src/presentation/bloc/roles_bloc/roles_bloc.dart';
 
 final authBloc =
@@ -13,3 +14,5 @@ final employeesBloc =
     BlocProvider.of<EmployeesBloc>(MainApp.navigatorKey.currentContext!);
 final rolesBloc =
     BlocProvider.of<RolesBloc>(MainApp.navigatorKey.currentContext!);
+final productionValuesBloc =
+    BlocProvider.of<ProductionValuesBloc>(MainApp.navigatorKey.currentContext!);

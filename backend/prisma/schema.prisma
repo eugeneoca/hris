@@ -79,12 +79,13 @@ model Role{
   @@map("roles")
 }
 
-model Division{
+model Division {
   id Int @id @default(autoincrement())
 
   name String @unique
 
   users User[]
+  productionValues ProductionValues[] // Add this line for the relation
 
   created_at DateTime @default(now())
   updated_at DateTime @updatedAt
@@ -119,4 +120,19 @@ model TimeInOut {
   updated_at  DateTime @updatedAt
 
   user        User     @relation(fields: [userid], references: [id])
+}
+
+model ProductionValues {
+  id          Int      @id @default(autoincrement())
+  date        DateTime
+  divisionid  Int
+  value       Float    
+
+  created_at  DateTime @default(now())
+  updated_at  DateTime @updatedAt
+
+  division    Division @relation(fields: [divisionid], references: [id]) // Establishing the relation
+
+  @@unique([divisionid, date])
+  @@map("production_values")
 }
