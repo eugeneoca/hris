@@ -1,0 +1,47 @@
+[
+  {
+    "id": 1,
+    "first_name": "Ralph",
+    "late_name": "Edjan",
+    "time": "8:30am",
+    "date": "Jan 6, 2024",
+    "type": "Employee",
+    "image": "https://i.pinimg.com/originals/9b/58/30/9b5830252dde6ffeb47f050bff3d0d7b.png"
+  },
+  {
+    "id": 2,
+    "first_name": "Jess",
+    "late_name": "Clerk",
+    "time": "8:00am",
+    "date": "Jan 6, 2024",
+    "type": "Employee",
+    "image": "https://i.pinimg.com/originals/51/19/95/511995729851564ed88c865f42e1844b.jpg"
+  },
+  {
+    "id": 3,
+    "first_name": "Francis",
+    "late_name": "Davidson",
+    "time": "7:56am",
+    "date": "Jan 6, 2024",
+    "type": "Employee",
+    "image": "https://i.pinimg.com/originals/f5/e2/fb/f5e2fb51fcb62017a89fbcfe97bd6897.jpg"
+  },
+  {
+    "id": 4,
+    "first_name": "Robin",
+    "late_name": "Steve",
+    "time": "7:30am",
+    "date": "Jan 6, 2024",
+    "type": "Employee",
+    "image": "https://i.pinimg.com/originals/3a/e5/0e/3ae50eb0d74405a95fa5865988b9ba3c.jpg"
+  },
+  {
+    "id": 5,
+    "first_name": "Jonard",
+    "late_name": "Mac",
+    "time": "8:00am",
+    "date": "Jan 6, 2024",
+    "type": "Employee",
+    "image": "https://i.pinimg.com/originals/93/f2/5b/93f25b975941c5f6f3fa9085c7c60911.jpg"
+  }
+]
