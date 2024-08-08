@@ -12,9 +12,24 @@ class LoginPage extends StatefulWidget {
 }
 
 class _LoginPageState extends State<LoginPage> {
-  final usernameController = TextEditingController();
-  final passwordController = TextEditingController();
   bool isError = false;
+  bool isNotPasswordVisible = true;
+
+  late TextEditingController usernameController;
+  late TextEditingController passwordController;
+  @override
+  void initState() {
+    super.initState();
+    usernameController = TextEditingController();
+    passwordController = TextEditingController();
+  }
+
+  @override
+  void dispose() {
+    usernameController.dispose();
+    passwordController.dispose();
+    super.dispose();
+  }
 
   @override
   Widget build(BuildContext context) {
@@ -34,16 +49,22 @@ class _LoginPageState extends State<LoginPage> {
                       children: [
                         UserField(
                           hintText: "Username:",
-                          controller: usernameController,
+                          textEditingController: usernameController,
                           isError: isError,
                         ),
                         const SizedBox(
                           height: 20,
                         ),
                         UserField(
+                          onPressed: () {
+                            setState(() {
+                              isNotPasswordVisible = !isNotPasswordVisible;
+                            });
+                          },
+                          isPasswordVisible: isNotPasswordVisible,
                           hintText: "Password:",
                           isPassword: true,
-                          controller: passwordController,
+                          textEditingController: passwordController,
                           isError: isError,
                         ),
                         const SizedBox(
@@ -55,18 +76,12 @@ class _LoginPageState extends State<LoginPage> {
                             ElevatedButton(
                               style: ElevatedButton.styleFrom(
                                   backgroundColor: Colors.red,
-                                  shape: const RoundedRectangleBorder(
-                                      borderRadius: BorderRadius.all(
-                                          Radius.circular(10)))),
+                                  shape: const RoundedRectangleBorder(borderRadius: BorderRadius.all(Radius.circular(10)))),
                               onPressed: () {
-                                if (usernameController.text.isEmpty ||
-                                    passwordController.text.isEmpty) {
-                                  CustomSnackbar().showErrorSnackbar(context,
-                                      content: "Please complete all fields.");
+                                if (usernameController.text.isEmpty || passwordController.text.isEmpty) {
+                                  CustomSnackbar().showErrorSnackbar(context, content: "Please complete all fields.");
                                 } else {
-                                  authBloc.add(LoginEvent(
-                                      username: usernameController.text,
-                                      password: passwordController.text));
+                                  authBloc.add(LoginEvent(username: usernameController.text, password: passwordController.text));
                                 }
                               },
                               child: const Text(
