@@ -7,6 +7,7 @@ import 'package:mobilev2/src/core/asset_helper.dart';
 import 'package:mobilev2/src/core/call_bloc_helper.dart';
 import 'package:mobilev2/src/core/constants.dart';
 import 'package:mobilev2/src/presentation/bloc/auth_bloc/auth_bloc.dart';
+import 'package:mobilev2/src/presentation/views/authenticated/side_views/attendance_page.dart';
 import 'package:mobilev2/src/presentation/views/authenticated/side_views/divisions_page.dart';
 import 'package:mobilev2/src/presentation/views/authenticated/side_views/employees_page.dart';
 import 'package:mobilev2/src/presentation/views/authenticated/side_views/home_page.dart';
@@ -27,7 +28,7 @@ class _WrapperPageState extends State<WrapperPage> {
     // const RanksPage(),
     // const SalaryPackagesPage(),
     const EmployeesPage(),
-    // const AttendancePage(),
+    const AttendancePage(),
     // const PayrollPage(),
     // const IntegrationPage(),
     const SettingsPage()
@@ -44,8 +45,7 @@ class _WrapperPageState extends State<WrapperPage> {
     return Scaffold(
       appBar: AppBar(
         backgroundColor: Colors.white,
-        title: const Text("HRIS",
-            style: TextStyle(fontWeight: FontWeight.w700, color: Colors.red)),
+        title: const Text("HRIS", style: TextStyle(fontWeight: FontWeight.w700, color: Colors.red)),
         bottom: PreferredSize(
           preferredSize: const Size.fromHeight(4.0),
           child: Container(
@@ -59,8 +59,7 @@ class _WrapperPageState extends State<WrapperPage> {
         children: [
           SingleChildScrollView(
             child: ConstrainedBox(
-              constraints:
-                  BoxConstraints(minHeight: MediaQuery.of(context).size.height),
+              constraints: BoxConstraints(minHeight: MediaQuery.of(context).size.height),
               child: IntrinsicHeight(
                 child: NavigationRail(
                   backgroundColor: Colors.white,
@@ -136,16 +135,17 @@ class _WrapperPageState extends State<WrapperPage> {
                         ),
                         label: Text('Employees'),
                         padding: EdgeInsets.symmetric(vertical: 10)),
-                    // const NavigationRailDestination(
-                    //     icon: Icon(
-                    //       FontAwesomeIcons.calendarDays,
-                    //     ),
-                    //     selectedIcon: Icon(
-                    //       FontAwesomeIcons.calendarDays,
-                    //       color: Colors.red,
-                    //     ),
-                    //     label: Text('Attendance'),
-                    //     padding: EdgeInsets.symmetric(vertical: 10)),
+                    // ATTENDANCE
+                    const NavigationRailDestination(
+                        icon: Icon(
+                          FontAwesomeIcons.calendarDays,
+                        ),
+                        selectedIcon: Icon(
+                          FontAwesomeIcons.calendarDays,
+                          color: Colors.red,
+                        ),
+                        label: Text('Attendance'),
+                        padding: EdgeInsets.symmetric(vertical: 10)),
                     // const NavigationRailDestination(
                     //     icon: Icon(
                     //       FontAwesomeIcons.creditCard,
@@ -257,9 +257,7 @@ class _TimeDisplayWidgetState extends State<TimeDisplayWidget> {
       padding: const EdgeInsets.only(right: 30),
       child: Row(
         children: [
-          Container(
-              padding: const EdgeInsets.only(right: 10),
-              child: const Icon(Icons.calendar_month)),
+          Container(padding: const EdgeInsets.only(right: 10), child: const Icon(Icons.calendar_month)),
           Text(
             _formattedDateTime,
           ),

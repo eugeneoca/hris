@@ -1,2 +1,14 @@
 .swp
 .vscode
+
+backend/node_modules
+node_modules
+mobilev2/.fvmrc
+**/*.g.dart
+**/*.gr.dart
+.fvmrc
+**/*.freezed.dart
+macos/Podfile.lock
+mobilev2/ios
+
+mobilev2/macos
